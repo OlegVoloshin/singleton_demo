@@ -5,30 +5,23 @@ class Logger
     @f = File.open("log.txt", "a")    
   end
 
-  @@x = nil
+  @@x = Logger.new # переменная класса
 
+  #создаем обьект внутри класса Logger
   def self.instance
-    if @@x == nil
-      @@x = Logger.new      
-    end
     return @@x    
   end
 
-  #class method
-  def self.say_something
-    puts 'Hahaha'
-  end
-
+ 
   #instance method
   def log_something(what)
     @f.puts what
   end
+
+  private_class_method :new # теперь метод .new мы можем вызывать только внутри класса
 end
 
-Logger.say_something
-Logger.instance.log_something('Blabla')
-Logger.instance.log_something('Blabla2')
 
 
-logger = Logger.new
-logger.log_something('hey!')
+#logger = Logger.new  это уже не работаеи из-за privat (чтобы извне не могли создавть обьекты)
+#logger.log_something('hey!')
